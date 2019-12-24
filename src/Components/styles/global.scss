@@ -1,49 +1,61 @@
-* {
-    box-sizing: border-box;
-    border: 1px solid rgba(255, 0, 0, 0.0);
+// Colors
+$color1: rgba(36, 123, 160, 1);
+$color2: rgba(112, 193, 179, 1);
+
+// Beginn here
+$font: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-body: $font;
+$font-header: $font;
+
+
+/* Headers and Paragraphs */
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-header;
+    color: $grey-900;
 }
 
+
+// Utility Classes
 .border {
     border: 1px solid black;
 }
- 
+
 /* Flexbox and Grid */
 .center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
- 
+
 .center-row {
     display: flex;
     justify-content: center;
 }
- 
+
 .center-column {
     display: flex;
     align-items: center;
 }
- 
+
 .grid2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
- 
+
 .grid3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
- 
+
 @media (max-width: 600px) {
     .grid2 {
         grid-template-columns: 1fr;
     }
- 
+
     .grid3 {
         grid-template-columns: 1fr;
     }
 }
-
 
 /* Components */
 .success-message {
@@ -51,77 +63,87 @@
     color: $green-900;
     padding: 0.5rem;
 }
- 
+
 .failure-message {
     background-color: $red-200;
     color: $red-900;
     padding: 0.5rem;
 }
- 
+
 .warning-message {
     background-color: $yellow-200;
     color: $yellow-900;
     padding: 0.5rem;
 }
- 
+
 .img-circle {
     display: block;
     border: 1px solid $grey-300;
     border-radius: 50%;
 }
- 
+
 .img-responsive {
     max-width: 100%;
     height: auto;
     display: block; 
     margin: 0 auto;
 }
- 
+
 .img-hover {
     box-shadow: 0 0.5em 2em 0 $grey-400;
- 
+
     &:hover {
         box-shadow: 0 0.5em 3em 0 $grey-400;
         opacity: 0.7;
         transition: width 3s ease;
     }
 }
- 
+
 .shadow {
     box-shadow: 0 0.5em 2em 0 $grey-400;
 }
 
 
+.card {
+    margin: 1em 0;
+    padding: 0 1em;
+    border: 1px solid $grey-200;
+    box-shadow: 0 0em 0.5em 0 $grey-300;
+}
+
+.card2 {
+    margin: 0 auto;
+    padding: 0 1em;
+    background-color: $grey-200;
+    border-left: 0.25em solid $color1;
+}
+
 
 // Components
-$color1: $teal-900;
-$color2: $blue-400;
-
-
 hr {
     background-color: $grey-300;
     margin: 5rem 0;
     height: 1px;
 }
- 
+
 ul {
     list-style-type: square;
 }
- 
+
 a {
     text-decoration: none;
     color: $color1;
     box-shadow: 0 0.1em 0 0 $color1;
- 
+
     &:not(.btn) {
         &:hover {
             color: $color2;
             box-shadow: 0 0.1em 0 0 $color2;
         }
     }
- 
+
 }
- 
+
 .btn, button {
     cursor: pointer;
     font-size: 0.8rem;
@@ -130,60 +152,155 @@ a {
     padding: 0.5em 1em;
     margin: 0.5rem 0;
     border-radius: 0.4em;
- 
+
     background-color: $color1;
     color: $white;
- 
+
     &:hover{
         opacity: 0.95;
         transition: width 2s ease;
     }
- 
+
     &:active {
         opacity: 0.8;
         transition: width 2s ease;
     }
- 
+
     &.disabled {
         background-color: $grey-300;
         color: $grey-500;
         cursor: not-allowed;
- 
+
         &:active {
             opacity: 1;
         }
     }
+
+    &.delete {
+        background-color: $red-700;
+    }
+
+    &.success {
+        background-color: $green-700;
+    }
 }
- 
- 
+
+
 table {
     width: 100%;
     display: table;
     border-collapse: collapse;
- 
+
     th {
         text-align: left;
         border-bottom: 1px solid $grey-700;
     }
- 
+
     tr:nth-child(even) {
         background-color: $grey-200;
     }
- 
+
     td:hover {
         background-color: $grey-300;
     }
 }
- 
- 
+
+
 code, pre {
-    font-family:  Consolas;
+    font-family: Consolas;
     font-size: 0.8rem; 
- 
+
     background-color: $grey-200;
-    border-left: 0.25em solid $color1;
+    border-left: 0.25em solid $green-700;
     border-bottom: 0.1em solid $grey-400;
-     
+    
+    display: block;
     padding: 0.5em;
     margin: 1em 0;
+    width: 100%;    
+}
+
+
+nav {
+    background-color: $white;
+    color: $color1;
+
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    text-align: right;
+
+    ul {
+        margin: 0.5rem;
+    }
+    
+    li {
+        list-style-type: none;
+        display: inline-block;
+        padding: 0 0.5em;
+        font-size: 0.8rem;
+    }
+}
+
+footer {
+    background-color: $white;
+    color: $color1;
+
+    position: absolute;
+    width: 100%;
+    left: 0;  
+
+    margin-top: 5rem;
+    padding: 1rem 0;
+    font-size: 0.8rem;
+
+    * {
+        max-width: 80rem;
+        margin: 0 auto;
+    }
+    
+    li {
+        list-style-type: none;
+        padding: 0.25em 0;
+    }
+
+}
+
+form {
+    width: 100%;
+}
+ 
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+input[type="number"],
+input[type="file"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea,
+textarea[type=text]  {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5em;
+    border: 0.10rem solid $grey-300;
+    border-radius: 5px;
+    font-family: $font-body;
+ 
+    &:focus {
+        border: 0.10rem solid $blue-500;
+        transition: all 0.2s ease;
+    }
+ 
+    &::placeholder {
+        color: $grey-500;
+        opacity: 1;
+    }
+}
+ 
+label {
+    font-size: 0.75rem;
+    color: $grey-500;
 }

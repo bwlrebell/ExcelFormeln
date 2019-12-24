@@ -1,16 +1,24 @@
 <style lang="scss">
-  @import "./styles/colors";
-  @import "./styles/global";
-
+  :global(*) {
+    box-sizing: border-box;
+  }
+  
   :global(body) {
-    background: $green-700; //rgba(42, 121, 45, 1);
-    font-family: -apple-system, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    
+    @import "./styles/colors";
+    @import "./styles/global";
+
+    font-family:  $font-body;
+    /* font-size: 10px; */
+
     max-width: 80vw;
-    min-height: 99.9vh;
+    min-height: 100vh;
 
     margin: 0 auto;
+    //padding: 2rem 1rem;
+
     line-height: 1.5;
-    border: 1px solid black;
+    color: $grey-900;
+    
+    background: $green-700;
   }
 </style>
