@@ -1,5 +1,7 @@
 <script>
-import Header from "./Components/Header.svelte";
+import GlobalStyle from "./Components/GlobalStyle.svelte";
+import Index from "./Components/Index.svelte";
 </script>
 
-<Header />
+<GlobalStyle />
+<Index />
