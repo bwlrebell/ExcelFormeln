@@ -1,5 +1,5 @@
 <script>
-  let input;
+  let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
   let text = `
   = SVERWEIS (
     A1; 
@@ -14,7 +14,7 @@
 <div class="center">
   <div class="white-box">
     <h1>Excel Formeln verstehen</h1>
-    <input type="text" bind:value={input} placeholder="=SVERWEIS(A1; A4:A8; 1; FALSCH)"/>
+    <textarea bind:value={input}></textarea>
     <pre>{text}</pre>
   </div>
 </div>
@@ -32,6 +32,10 @@
     padding: 1rem;
     border-radius: 10px;
     border: 3px solid $blue-200;
+  }
+
+  pre {
+    border-radius: 5px;
   }
 
   
