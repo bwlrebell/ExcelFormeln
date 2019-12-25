@@ -20,5 +20,6 @@
     color: $grey-900;
     
     background: $green-700;
+    background: radial-gradient(circle, $green-500 40%, $green-700 100%);
   }
 </style>
