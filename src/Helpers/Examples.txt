@@ -1,0 +1,5 @@
+=SVERWEIS(A1; A4:A8; 1; FALSCH)
+=VLOOKUP(A1, A4:A8, 1, FALSCH)
+
+
+=WENN($A$1="Something";SUMME($A$1:$AB$4);SUMMEWENN(A2:A5; ">" & C2; B2:B5))
