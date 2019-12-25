@@ -1,4 +1,5 @@
 <script>
+  import getFormula from "../Helpers/formula.js";
   let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
   let text = `
   = SVERWEIS (
@@ -8,6 +9,8 @@
     FALSCH
   )
   `
+
+  getFormula();
 </script>
 
 
@@ -37,7 +40,6 @@
     position: absolute;
   }
 
-
   @media (max-width: 900px) {
     .white-box {
       width: 75%;
@@ -55,6 +57,14 @@
     position: fixed;
     margin: 0 auto;
     z-index: 1;
+  }
+
+  @media (max-height: 600px) {
+    img {
+      top: 5%;
+      max-width: 150px;
+      max-height: 150px;
+    }
   }
 
   
