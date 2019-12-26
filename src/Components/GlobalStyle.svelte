@@ -3,6 +3,10 @@
     box-sizing: border-box;
   }
   
+  :global(html) {
+    height: 100vh;
+  }
+
   :global(body) {
     @import "./styles/colors";
     @import "./styles/global";

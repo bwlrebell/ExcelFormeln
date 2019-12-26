@@ -1,5 +1,5 @@
 <script>
-  import getFormula from "../Helpers/formula.js";
+  //import getFormula from "../Helpers/formula.js";
   let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
   let text = `
   = SVERWEIS (
@@ -9,8 +9,6 @@
     FALSCH
   )
   `
-
-  getFormula();
 </script>
 
 
