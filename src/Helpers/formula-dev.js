@@ -6,6 +6,14 @@
  * @return {string} output a formatted formula string
  */
 function formatFormula(input) {
+  // ReplaceAt Function
+  let replaceAt = function(string, index, replacement) {
+    const left = string.substr(0, index);
+    const right = string.substr(index + 1, string.length);
+    return left + replacement + right;
+  }
+
+
   // Check if input is undefined
   input = (input !== undefined) ? String(input) : "";
   
@@ -19,25 +27,10 @@ function formatFormula(input) {
     input = "=" + input;
   }
 
-  /* Sanitize input (<, >, //)
-  input = input.replace(/</g, "&lt;");
-  input = input.replace(/>/g, "&gt;");
-  input = input.replace(/\/\//g, "&frasl;&frasl;");
-  input = input.trim();
-
-  */
-
-  // ReplaceAt Function
-  let replaceAt = function(string, index, replacement) {
-    const left = string.substr(0, index);
-    const right = string.substr(index + 1, string.length);
-    return left + replacement + right;
-  }
 
   // String Replacement
   input = input.replace(/\;\s/g, ";");
-  let level = 0;
-  
+  let deep = 0;
   for (let i = 0; i < input.length; i++) {
     let chr = input[i];
     let delta = input.length;
@@ -49,27 +42,29 @@ function formatFormula(input) {
     }
 
     if(chr === "(") {
-      level += 1;
-      input = replaceAt(input, i, " ( \n" + "\t".repeat(level));
+      deep += 1;
+      input = replaceAt(input, i, " ( \n" + "\t".repeat(deep));
       delta = input.length - delta;
       i = i + delta;
     }
 
     if(chr === ";") {
-      input = replaceAt(input, i, ";\n" + "\t".repeat(level));
+      input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
       delta = input.length - delta;
       i = i + delta;
     }
 
     if(chr === ")") {
-      level -= 1;
-      input = replaceAt(input, i, "\n" + "\t".repeat(level) + ")");
+      deep -= 1;
+      input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
       delta = input.length - delta;
       i = i + delta;
     }
   }
 
-  let result = input.trim();
+  input = input.trim()
+
+  let result = input;
   return result
 }
 
