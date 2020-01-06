@@ -1,22 +1,32 @@
 <script>
-  //import getFormula from "../Helpers/formula.js";
+  import formatFormula from "../Helpers/formula.js";
   let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
-  let text = `
-  = SVERWEIS (
-    A1; 
-    A4:A8; 
-    1; 
-    FALSCH
-  )
-  `
+  export let lang = "de";
+  let text = formatFormula(input, lang);
+
+  let handleButtonGo = () => {
+    text = formatFormula(input, lang);
+  }
+
 </script>
 
 
 <div class="center-row">
   <img src="./Assets/analysis.svg" alt="Excel Illustration">
   <div class="white-box">
+  {#if lang==="de"}
     <h1>Excel Formeln verstehen</h1>
+  {:else}
+    <h1>Excel Formula Prettifier</h1>
+  {/if}
     <textarea bind:value={input}></textarea>
+    <div class="row">
+      <button type="button" id="go" on:click={handleButtonGo}>Go</button>
+      <select id="lang" name="lang" bind:value={lang}>
+        <option value="de">de</option>
+        <option value="en">en</option>
+      </select>
+    </div>
     <pre>{text}</pre>
   </div>
 </div>
@@ -64,6 +74,21 @@
       max-height: 150px;
     }
   }
+  
+  .row {
+    display: flex;
+    justify-content: left;
+
+    #go {
+      background: $green-700;
+    }
+
+    select {
+      margin: auto 1rem;
+      width: 70px;
+    }
+  }
 
   
+
 </style>

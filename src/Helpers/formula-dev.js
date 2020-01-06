@@ -32,7 +32,7 @@ function formatFormula(input, lang = "en") {
     if (lang === "de") {
       input = input.replace(/\;\s/g, ";");
     } else {
-      input = input.replace(/\;\s/g, ",");
+      input = input.replace(/\,\s/g, ",");
     }
     
     let deep = 0;

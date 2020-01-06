@@ -4,7 +4,7 @@
  * @param {string} lang - Language setting
  * @return {string} output a formatted formula string
  */
-export function formatFormula(input, lang = "en") {
+export default function formatFormula(input, lang = "en") {
   // ReplaceAt Function
   let replaceAt = function(string, index, replacement) {
     const left = string.substr(0, index);
@@ -30,7 +30,7 @@ export function formatFormula(input, lang = "en") {
     if (lang === "de") {
       input = input.replace(/\;\s/g, ";");
     } else {
-      input = input.replace(/\;\s/g, ",");
+      input = input.replace(/\,\s/g, ",");
     }
     
     let deep = 0;
