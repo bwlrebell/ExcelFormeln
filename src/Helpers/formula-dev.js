@@ -28,8 +28,6 @@ function formatFormula(input, lang = "en") {
       input = "=" + input;
     }
 
-
-
     // Formatting
     if (lang === "de") {
       input = input.replace(/\;\s/g, ";");
@@ -87,12 +85,12 @@ function formatFormula(input, lang = "en") {
   }
 }
 
-// console.log(formatFormula());
-// console.log(formatFormula(""));
-// console.log(formatFormula("ABC"));
-// console.log(formatFormula("=ABC"));
-// console.log(formatFormula("=Something//"));
-// console.log(formatFormula("=Something<script>alert('x //')</script>"));
-console.log(formatFormula("=SVERWEIS(x;x;x)"))
-console.log(formatFormula('=SVERWEIS(Wenn(y=3;y;y); x; x)'));
+console.log(formatFormula());
+console.log(formatFormula(""));
+console.log(formatFormula("ABC"));
+console.log(formatFormula("=ABC"));
+console.log(formatFormula("=Something//"));
+console.log(formatFormula("=Something<script>alert('x //')</script>"));
+console.log(formatFormula("=SVERWEIS(x;x;x)", "de"));
+console.log(formatFormula('=SVERWEIS(Wenn(y=3;y;y); x; x)', "de"));
 console.log(formatFormula('=SVERWEIS(Wenn(y<3;"YES";"NO"); OTHERFUNCTION(3,14; 3; SVERWEIS(X;Y)); x)', "de"));

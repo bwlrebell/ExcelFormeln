@@ -1,6 +1,92 @@
-const formatFormula = require("./formula.js");
+/**
+ * Take a row formula string and return it formatted
+ * @param {string} input - Input formula string
+ * @param {string} lang - Language setting
+ * @return {string} output a formatted formula string
+ */
+function formatFormula(input, lang = "en") {
+  // ReplaceAt Function
+  let replaceAt = function(string, index, replacement) {
+    const left = string.substr(0, index);
+    const right = string.substr(index + 1, string.length);
+    return left + replacement + right;
+  }
 
-describe("Sanitation", () => {
+  try {
+    // Check if input is undefined
+    input = (input !== undefined) ? String(input) : "";
+    
+    // Check if empty
+    if (input.length === 0) {
+      return "Empty String";
+    }
+
+    // Check if formula starts with "="
+    if(input[0] !== "=") {
+      input = "=" + input;
+    }
+
+    // Formatting
+    if (lang === "de") {
+      input = input.replace(/\;\s/g, ";");
+    } else {
+      input = input.replace(/\;\s/g, ",");
+    }
+    
+    let deep = 0;
+    for (let i = 0; i < input.length; i++) {
+      let chr = input[i];
+      let delta = input.length;
+
+      if(chr === "=") {
+        input = replaceAt(input, i, "=");
+        delta = input.length - delta;
+        i = i + delta;
+      }
+
+      if(chr === "(") {
+        deep += 1;
+        input = replaceAt(input, i, " ( \n" + "\t".repeat(deep));
+        delta = input.length - delta;
+        i = i + delta;
+      }
+
+      if (lang === "de") {
+        if(chr === ";") {
+          input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+          delta = input.length - delta;
+          i = i + delta;
+        }
+      } else {
+          if(chr === ",") {
+            input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
+            delta = input.length - delta;
+            i = i + delta;
+          }
+      }
+      
+      if(chr === ")") {
+        deep -= 1;
+        input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
+        delta = input.length - delta;
+        i = i + delta;
+      }
+    }
+
+    input = input.replace(/\t/g, " ".repeat(4));
+    input = input.trim()
+
+    let result = input;
+    return result
+  } catch(err) {
+    return err.message
+  }
+}
+
+
+// ############################################################################
+// Test
+describe("Simple Inputs", () => {
   test("Empty input -> Return warning", () => {
     let result = formatFormula();
     expect(result).toBe("Empty String");
@@ -20,14 +106,12 @@ describe("Sanitation", () => {
     let result = formatFormula("=ABC");
     expect(result).toBe("=ABC");
   });
+});
 
-  test("Javascript Comments", () => {
-    let result = formatFormula("Something//");
-    expect(result).toBe("=Something&frasl;&frasl;");
+describe("Excel Formulas", () => {
+  test("Sverweis DE", () => {
+    let result = formatFormula("=SVERWEIS(x;x;x)", "de").length;
+    expect(result).toBe(34)
   });
 
-  test("XSS Injection", () => {
-    let result = formatFormula("=Something<script>alert('x //')</script>");
-    expect(result).toBe("=Something&lt;script&gt;alert('x &frasl;&frasl;')&lt;/script&gt;");
-  });
 });
