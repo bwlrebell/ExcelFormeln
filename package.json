@@ -13,6 +13,7 @@
     "svelte-preprocess": "^3.2.2"
   },
   "dependencies": {
+    "highlight.js": "^9.17.1",
     "jest": "^24.9.0",
     "sirv-cli": "^0.4.4",
     "svelte-spa-router": "^2.0.0"
@@ -22,6 +23,6 @@
     "dev": "rollup -c -w",
     "start": "sirv public --single",
     "start:dev": "sirv public --single --dev",
-    "test" : "jest"
+    "test": "jest"
   }
 }

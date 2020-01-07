@@ -1,5 +1,6 @@
 <script>
   import formatFormula from "../Helpers/formula.js";
+  
   let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
   export let lang = "de";
   let text = formatFormula(input, lang);
@@ -7,7 +8,6 @@
   let handleButtonGo = () => {
     text = formatFormula(input, lang);
   }
-
 </script>
 
 
@@ -27,7 +27,7 @@
         <option value="en">en</option>
       </select>
     </div>
-    <pre>{text}</pre>
+    <pre><code class="excel">{text}</code></pre>
   </div>
 </div>
 
@@ -54,7 +54,7 @@
     }
   }
 
-  pre {
+  code {
     border-radius: 5px;
   }
 
@@ -81,6 +81,7 @@
 
     #go {
       background: $green-700;
+      border: 1px solid $green-700;
     }
 
     select {
