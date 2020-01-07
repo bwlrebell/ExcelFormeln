@@ -12,73 +12,75 @@ export default function formatFormula(input, lang = "en") {
     return left + replacement + right;
   }
 
-  try {
-    // Check if input is undefined
-    input = (input !== undefined) ? String(input) : "";
+  // Check if input is undefined
+  input = (input !== undefined) ? String(input) : "";
     
-    // Check if empty
-    if (input.length === 0) {
-      return "Empty String";
-    }
+  // Check if empty
+  if (input.length === 0) {
+    return "Empty String";
+  }
 
-    // Check if formula starts with "="
-    if(input[0] !== "=") {
-      input = "=" + input;
-    }
+  // Check if formula starts with "="
+  if(input[0] !== "=") {
+    input = "=" + input;
+  }
 
-    // Formatting
-    if (lang === "de") {
-      input = input.replace(/\;\s/g, ";");
-    } else {
-      input = input.replace(/\,\s/g, ",");
-    }
+  // Formatting
+  if (lang === "de") {
+    input = input.replace(/\;\s/g, ";");
+  } else {
+    input = input.replace(/\,\s/g, ",");
+  }
     
-    let deep = 0;
-    for (let i = 0; i < input.length; i++) {
-      let chr = input[i];
-      let delta = input.length;
+  let deep = 0;
+  let isOperator = false;
+  for (let i = 0; i < input.length; i++) {
+    let chr = input[i];
+    let delta = input.length;
 
-      if(chr === "=") {
-        input = replaceAt(input, i, "=");
-        delta = input.length - delta;
-        i = i + delta;
-      }
-
-      if(chr === "(") {
+    let lastChr = (i === 0) ? "" : input[i-1];
+      
+    if(chr === "(") {
+      if(/\w/.test(lastChr)) {
         deep += 1;
         input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
         delta = input.length - delta;
         i = i + delta;
+        isOperator = false;
+      } else {
+        isOperator = true;
       }
+    }
 
-      if (lang === "de") {
-        if(chr === ";") {
-          input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+    if (lang === "de") {
+      if(chr === ";") {
+        input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+        delta = input.length - delta;
+        i = i + delta;
+      }
+    } else {
+        if(chr === ",") {
+          input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
           delta = input.length - delta;
           i = i + delta;
         }
-      } else {
-          if(chr === ",") {
-            input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
-            delta = input.length - delta;
-            i = i + delta;
-          }
-      }
+    }
       
-      if(chr === ")") {
+    if(chr === ")") {
+      if(!isOperator) {
         deep -= 1;
         input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
         delta = input.length - delta;
         i = i + delta;
+      } else {
+        isOperator = false;
       }
-    }
-
-    input = input.replace(/\t/g, " ".repeat(4));
-    input = input.trim()
-
-    let result = input;
-    return result
-  } catch(err) {
-    return err.message
+    } 
   }
+
+  input = input.replace(/\t/g, " ".repeat(4));
+  input = input.trim()
+
+  let result = input;
+  return result
 }
