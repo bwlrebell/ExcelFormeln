@@ -36,21 +36,29 @@ export function formatFormula(input, lang = "en") {
     }
     
     let deep = 0;
+    let isOperator = false;
     for (let i = 0; i < input.length; i++) {
       let chr = input[i];
       let delta = input.length;
 
+      let lastChr = (i === 0) ? "" : input[i-1];
+      
       if(chr === "=") {
         input = replaceAt(input, i, "=");
         delta = input.length - delta;
         i = i + delta;
       }
 
-      if(chr === "(") {
-        deep += 1;
-        input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
-        delta = input.length - delta;
-        i = i + delta;
+      if(chr === "(" && /\w/.test(lastChr)) {
+        if(/\w/.test(lastChr)) {
+          deep += 1;
+          input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
+          delta = input.length - delta;
+          i = i + delta;
+          isOperator = false;
+        } else {
+          isOperator = true;
+        }
       }
 
       if (lang === "de") {
@@ -67,7 +75,7 @@ export function formatFormula(input, lang = "en") {
           }
       }
       
-      if(chr === ")") {
+      if(chr === ")" && !isOperator) {
         deep -= 1;
         input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
         delta = input.length - delta;
