@@ -1,7 +1,7 @@
 <script>
   import formatFormula from "../Helpers/formula.js";
-  
-  let input = "=SVERWEIS(A1; A4:A8; 1; FALSCH)";
+
+  let input = "=VLOOKUP(A1; A4:A8; 1; FALSCH)";
   export let lang = "de";
   let text = formatFormula(input, lang);
 
