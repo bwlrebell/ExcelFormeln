@@ -4,7 +4,7 @@
   
   export let lang = "de";
   
-  let input = "=VLOOKUP(A1; A4:A8; 1; FALSCH)";
+  let input = '=VLOOKUP(A1; A4:A8; (1+1)/14; FALSCH) + CONCAT(X; Y+"abc")';
   let text = formatFormula(input, lang);
   let block;
 

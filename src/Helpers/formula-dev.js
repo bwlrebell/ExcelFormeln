@@ -1,4 +1,4 @@
-// node src/Helpers/formula-dev.js
+// node -r esm src/Helpers/formula-dev.js
 
 /**
  * Take a row formula string and return it formatted
@@ -6,7 +6,7 @@
  * @param {string} lang - Language setting
  * @return {string} output a formatted formula string
  */
-function formatFormula(input, lang = "en") {
+export function formatFormula(input, lang = "en") {
   // ReplaceAt Function
   let replaceAt = function(string, index, replacement) {
     const left = string.substr(0, index);
@@ -48,7 +48,7 @@ function formatFormula(input, lang = "en") {
 
       if(chr === "(") {
         deep += 1;
-        input = replaceAt(input, i, " ( \n" + "\t".repeat(deep));
+        input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
         delta = input.length - delta;
         i = i + delta;
       }
@@ -94,3 +94,4 @@ console.log(formatFormula("=Something<script>alert('x //')</script>"));
 console.log(formatFormula("=SVERWEIS(x;x;x)", "de"));
 console.log(formatFormula('=SVERWEIS(Wenn(y=3;y;y); x; x)', "de"));
 console.log(formatFormula('=SVERWEIS(Wenn(y<3;"YES";"NO"); OTHERFUNCTION(3,14; 3; SVERWEIS(X;Y)); x)', "de"));
+console.log(formatFormula("=IF(G11<0;(I11-G11)/-G11;(I11-G11)/G11)"));

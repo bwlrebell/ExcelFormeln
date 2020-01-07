@@ -46,7 +46,7 @@ export default function formatFormula(input, lang = "en") {
 
       if(chr === "(") {
         deep += 1;
-        input = replaceAt(input, i, " ( \n" + "\t".repeat(deep));
+        input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
         delta = input.length - delta;
         i = i + delta;
       }
