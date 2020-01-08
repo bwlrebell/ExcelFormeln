@@ -69,7 +69,7 @@
     max-width: 200px;
     max-height: 200px;
     top: 10%;
-    position: fixed;
+    position: absolute;
     margin: 0 auto;
     z-index: 1;
   }
@@ -96,7 +96,4 @@
       width: 70px;
     }
   }
-
-  
-
 </style>
