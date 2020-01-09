@@ -27,9 +27,8 @@ Array.from(reason).forEach(e => {
 </script>
 
 <script>
-import GlobalStyle from "./Components/GlobalStyle.svelte";
 import Prettifier from "./Components/Prettifier.svelte";
 </script>
 
-<GlobalStyle />
+
 <Prettifier lang={lang}/>

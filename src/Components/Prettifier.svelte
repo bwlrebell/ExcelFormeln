@@ -39,7 +39,7 @@
 </div>
 
 <style lang="scss">
-  @import "./styles/colors";
+  @import "./styles/colors.scss";
   
   .center-row {
     min-height: 100vh;
