@@ -29,7 +29,7 @@
     <textarea bind:value={input}></textarea>
     <div class="row">
       <button type="button" id="go" on:click={handleButtonGo}>Go</button>
-      <select id="lang" name="lang" bind:value={lang}>
+      <select id="lang" name="languageSelector" bind:value={lang}>
         <option value="de">de</option>
         <option value="en">en</option>
       </select>
@@ -57,7 +57,7 @@
 
   @media (max-width: 900px) {
     .white-box {
-      width: 75%;
+      width: 90%;
     }
   }
 
