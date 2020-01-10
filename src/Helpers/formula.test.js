@@ -5,82 +5,84 @@
  * @return {string} output a formatted formula string
  */
 function formatFormula(input, lang = "en") {
-  // ReplaceAt Function
+    // ReplaceAt Function
   let replaceAt = function(string, index, replacement) {
     const left = string.substr(0, index);
     const right = string.substr(index + 1, string.length);
     return left + replacement + right;
   }
 
-  try {
-    // Check if input is undefined
-    input = (input !== undefined) ? String(input) : "";
+  // Check if input is undefined
+  input = (input !== undefined) ? String(input) : "";
     
-    // Check if empty
-    if (input.length === 0) {
-      return "Empty String";
-    }
+  // Check if empty
+  if (input.length === 0) {
+    return "Empty String";
+  }
 
-    // Check if formula starts with "="
-    if(input[0] !== "=") {
-      input = "=" + input;
-    }
+  // Check if formula starts with "="
+  if(input[0] !== "=") {
+    input = "=" + input;
+  }
 
-    // Formatting
-    if (lang === "de") {
-      input = input.replace(/\;\s/g, ";");
-    } else {
-      input = input.replace(/\;\s/g, ",");
-    }
+  // Formatting
+  if (lang === "de") {
+    input = input.replace(/\;\s/g, ";");
+  } else {
+    input = input.replace(/\,\s/g, ",");
+  }
     
-    let deep = 0;
-    for (let i = 0; i < input.length; i++) {
-      let chr = input[i];
-      let delta = input.length;
+  let deep = 0;
+  let isOperator = false;
+  for (let i = 0; i < input.length; i++) {
+    let chr = input[i];
+    let delta = input.length;
 
-      if(chr === "=") {
-        input = replaceAt(input, i, "=");
-        delta = input.length - delta;
-        i = i + delta;
-      }
-
-      if(chr === "(") {
+    let lastChr = (i === 0) ? "" : input[i-1];
+      
+    if(chr === "(") {
+      if(/\w/.test(lastChr)) {
         deep += 1;
-        input = replaceAt(input, i, " ( \n" + "\t".repeat(deep));
+        input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
+        delta = input.length - delta;
+        i = i + delta;
+        isOperator = false;
+      } else {
+        isOperator = true;
+      }
+    }
+
+    if (lang === "de") {
+      if(chr === ";") {
+        input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
         delta = input.length - delta;
         i = i + delta;
       }
-
-      if (lang === "de") {
-        if(chr === ";") {
-          input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+    } else {
+        if(chr === ",") {
+          input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
           delta = input.length - delta;
           i = i + delta;
         }
-      } else {
-          if(chr === ",") {
-            input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
-            delta = input.length - delta;
-            i = i + delta;
-          }
-      }
+    }
       
-      if(chr === ")") {
+    if(chr === ")") {
+      if(!isOperator) {
         deep -= 1;
         input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
         delta = input.length - delta;
         i = i + delta;
+      } else {
+        isOperator = false;
       }
-    }
-
-    input = input.replace(/\t/g, " ".repeat(4));
-    input = input.trim()
-
-    let result = input;
-    return result
-  } catch(err) {
-    return err.message
+    } 
   }
+
+  input = input.replace(/\t/g, " ".repeat(4));
+  input = input.trim()
+
+  let result = input;
+  return result
 }
 
 
@@ -111,7 +113,7 @@ describe("Simple Inputs", () => {
 describe("Excel Formulas", () => {
   test("Sverweis DE", () => {
     let result = formatFormula("=SVERWEIS(x;x;x)", "de").length;
-    expect(result).toBe(34)
+    expect(result).toBe(32)
   });
 
 });
