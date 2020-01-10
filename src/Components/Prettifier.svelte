@@ -18,7 +18,7 @@
 </script>
 
 
-<div class="center-row">
+<div class="center">
   <img src="./Assets/analysis.svg" alt="Excel Illustration">
   <div class="white-box">
   {#if lang==="de"}
@@ -41,8 +41,8 @@
 <style lang="scss">
   @import "./styles/colors.scss";
   
-  .center-row {
-    min-height: 100vh;
+  .center {
+    flex-direction: column;
   }
 
   .white-box {
@@ -51,8 +51,8 @@
     padding: 1rem;
     border-radius: 10px;
     border: 3px solid $blue-200;
-    top: 25%;
-    position: absolute;
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 900px) {
@@ -63,20 +63,19 @@
 
   code {
     border-radius: 5px;
+    max-height: 100%;
   }
 
   img {
     max-width: 200px;
     max-height: 200px;
-    top: 10%;
-    position: absolute;
-    margin: 0 auto;
-    z-index: 1;
+    position: relative;
+    margin-bottom: -1.5rem;
+    z-index: 2;
   }
 
   @media (max-height: 600px) {
     img {
-      top: 5%;
       max-width: 150px;
       max-height: 150px;
     }

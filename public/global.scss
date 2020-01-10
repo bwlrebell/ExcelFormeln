@@ -36,15 +36,91 @@ body {
     background: radial-gradient(circle, $green-500 40%, $green-700 100%);
 }
 
-.reason {
-    background: $grey-900;
-    min-height: 100vh;
+main {
+    position: relative;
+    width: 100%;
+    min-height: 95vh;
+    margin: 0;
+    
+    display: flex;
+    flex-direction: column;
+}
 
-    h1, h2, p {
-      color: $white;
-      max-width: 80%;
-      margin: auto;
-      padding: 1rem;
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    min-height: 5vh;
+    margin: 0;
+    padding: 1rem;
+    text-align: center;
+}
+
+nav {
+    background: $transparent;
+    color: $white;
+
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    
+    z-index: 5;
+    height: 30px;
+
+    ul {
+        text-align: right;
+        margin: 0;
+    }
+    
+    li {
+        list-style-type: none;
+        display: inline-block;
+        padding: 0 0.5em;
+        font-size: 0.8rem;
+    }
+
+    a {
+        text-decoration: none;
+        font-weight: 600;
+        color: $white;
+        box-shadow: 0 0.3rem 0 0 $indigo-700;
+        &:hover {
+            color: $white;
+            box-shadow: 0 0.3rem 0 0 $indigo-700;
+        }
+    }
+}
+
+#app {
+    margin-top: 3rem;
+}
+
+.reason {
+    margin: auto;
+    margin-top: 10rem;
+
+    background: $white;
+    width: 60%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 3px solid $blue-200;
+    position: relative;
+}
+
+@media (max-width: 900px) {
+    .reason {
+        width: 90%;
+    }
+
+    nav {
+        background: $green-700;
     }
 }
 
@@ -174,12 +250,12 @@ ul {
 a {
     text-decoration: none;
     color: $color1;
-    box-shadow: 0 0.1em 0 0 $color1;
+    box-shadow: 0 0.3rem 0 0 $indigo-700;
 
     &:not(.btn) {
         &:hover {
             color: $color2;
-            box-shadow: 0 0.1em 0 0 $color2;
+            box-shadow: 0 0.3rem 0 0 $indigo-700;
         }
     }
 
@@ -259,53 +335,6 @@ code {
     padding: 0.5em;
     margin: 1em 0;
     width: 100%;    
-}
-
-
-nav {
-    background-color: $white;
-    color: $color1;
-
-    top: 0;
-    left: 0;
-    position: fixed;
-    width: 100%;
-    text-align: right;
-
-    ul {
-        margin: 0.5rem;
-    }
-    
-    li {
-        list-style-type: none;
-        display: inline-block;
-        padding: 0 0.5em;
-        font-size: 0.8rem;
-    }
-}
-
-footer {
-    background-color: $white;
-    color: $color1;
-
-    position: absolute;
-    width: 100%;
-    left: 0;  
-
-    margin-top: 5rem;
-    padding: 1rem 0;
-    font-size: 0.8rem;
-
-    * {
-        max-width: 80rem;
-        margin: 0 auto;
-    }
-    
-    li {
-        list-style-type: none;
-        padding: 0.25em 0;
-    }
-
 }
 
 form {
