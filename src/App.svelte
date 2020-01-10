@@ -16,8 +16,8 @@ var language = languages
 let html = document.getElementsByTagName("html")[0];
 html.setAttribute("lang", language);
 
-let reason = document.getElementsByClassName("reason");
-Array.from(reason).forEach(e => {
+let elements = html.querySelectorAll(`[lang]`);
+Array.from(elements).forEach(e => {
   if (e.lang === language) {
     e.style.display = "block";
   } else {
