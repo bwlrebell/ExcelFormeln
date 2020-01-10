@@ -17,6 +17,7 @@ $font-header: $font;
 
 html {
     height: 100vh;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -112,6 +113,15 @@ nav {
     border-radius: 10px;
     border: 3px solid $blue-200;
     position: relative;
+    
+    line-height: 2.0;
+    padding: 0 2rem;
+
+    p {
+        text-align: justify;
+        color: $grey-800;
+    }
+
 }
 
 @media (max-width: 900px) {
