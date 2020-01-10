@@ -22,7 +22,7 @@
   <img src="./Assets/analysis.svg" alt="Excel Illustration">
   <div class="white-box">
   {#if lang==="de"}
-    <h1>Excel Formeln verstehen</h1>
+    <h1>Excel Formeln Formatierer</h1>
   {:else}
     <h1>Excel Formula Prettifier</h1>
   {/if}
