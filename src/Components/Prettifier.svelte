@@ -53,8 +53,7 @@
     background: $white;
     width: 60%;
     padding: 1rem;
-    border-radius: 10px;
-    border: 3px solid $blue-200;
+    border: 3px solid $green-900;
     position: relative;
     z-index: 1;
   }
@@ -66,7 +65,6 @@
   }
 
   code {
-    border-radius: 5px;
     max-height: 100%;
   }
 
@@ -91,7 +89,7 @@
 
     #go {
       background: $green-700;
-      border: 1px solid $green-700;
+      border: 2px solid $green-900;
     }
 
     select {
