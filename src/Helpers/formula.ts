@@ -31,22 +31,23 @@ export default function formatFormula(input: string, lang: string = "en"): strin
   } else {
     input = input.replace(/\,\s/g, ",");
   }
+  input = input.replace(/\n/g, "");
     
-  let deep = 0;
+  let formulaDeepness = 0;
   let isOperator = false;
   for (let i = 0; i < input.length; i++) {
     let chr = input[i];
     let delta = input.length;
 
     let lastChr = (i === 0) ? "" : input[i-1];
+    let nextChr = (input[i+1] === undefined) ? "" : input[i+1];
       
     if(chr === "(") {
-      if(/\w/.test(lastChr)) {
-        deep += 1;
-        input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
+      if(/[\w\=]/.test(lastChr) && nextChr !== ")") {
+        formulaDeepness += 1;
+        input = replaceAt(input, i, "(\n" + "\t".repeat(formulaDeepness));
         delta = input.length - delta;
         i = i + delta;
-        isOperator = false;
       } else {
         isOperator = true;
       }
@@ -54,13 +55,13 @@ export default function formatFormula(input: string, lang: string = "en"): strin
 
     if (lang === "de") {
       if(chr === ";") {
-        input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+        input = replaceAt(input, i, ";\n" + "\t".repeat(formulaDeepness));
         delta = input.length - delta;
         i = i + delta;
       }
     } else {
         if(chr === ",") {
-          input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
+          input = replaceAt(input, i, ",\n" + "\t".repeat(formulaDeepness));
           delta = input.length - delta;
           i = i + delta;
         }
@@ -68,8 +69,8 @@ export default function formatFormula(input: string, lang: string = "en"): strin
       
     if(chr === ")") {
       if(!isOperator) {
-        deep -= 1;
-        input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
+        formulaDeepness -= 1;
+        input = replaceAt(input, i, "\n" + "\t".repeat(formulaDeepness) + ")");
         delta = input.length - delta;
         i = i + delta;
       } else {

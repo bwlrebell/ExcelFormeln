@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 /**
  * Take a row formula string and return it formatted
  * @param {string} input - Input formula string
@@ -31,19 +31,20 @@ function formatFormula(input, lang) {
     else {
         input = input.replace(/\,\s/g, ",");
     }
-    var deep = 0;
+    input = input.replace(/\n/g, "");
+    var formulaDeepness = 0;
     var isOperator = false;
     for (var i = 0; i < input.length; i++) {
         var chr = input[i];
         var delta = input.length;
         var lastChr = (i === 0) ? "" : input[i - 1];
+        var nextChr = (input[i + 1] === undefined) ? "" : input[i + 1];
         if (chr === "(") {
-            if (/\w/.test(lastChr)) {
-                deep += 1;
-                input = replaceAt(input, i, "(\n" + "\t".repeat(deep));
+            if (/[\w\=]/.test(lastChr) && nextChr !== ")") {
+                formulaDeepness += 1;
+                input = replaceAt(input, i, "(\n" + "\t".repeat(formulaDeepness));
                 delta = input.length - delta;
                 i = i + delta;
-                isOperator = false;
             }
             else {
                 isOperator = true;
@@ -51,22 +52,22 @@ function formatFormula(input, lang) {
         }
         if (lang === "de") {
             if (chr === ";") {
-                input = replaceAt(input, i, ";\n" + "\t".repeat(deep));
+                input = replaceAt(input, i, ";\n" + "\t".repeat(formulaDeepness));
                 delta = input.length - delta;
                 i = i + delta;
             }
         }
         else {
             if (chr === ",") {
-                input = replaceAt(input, i, ",\n" + "\t".repeat(deep));
+                input = replaceAt(input, i, ",\n" + "\t".repeat(formulaDeepness));
                 delta = input.length - delta;
                 i = i + delta;
             }
         }
         if (chr === ")") {
             if (!isOperator) {
-                deep -= 1;
-                input = replaceAt(input, i, "\n" + "\t".repeat(deep) + ")");
+                formulaDeepness -= 1;
+                input = replaceAt(input, i, "\n" + "\t".repeat(formulaDeepness) + ")");
                 delta = input.length - delta;
                 i = i + delta;
             }
@@ -80,4 +81,4 @@ function formatFormula(input, lang) {
     var result = input;
     return result;
 }
-exports.default = formatFormula;
+exports["default"] = formatFormula;
