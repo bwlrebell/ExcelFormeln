@@ -1,50 +1,25 @@
 <script>
   import { onMount } from "svelte";
   import formatFormula from "../Helpers/formula.js";
-  
-  export let lang = "de";
-  
+
+  export let lang = "en";
+
   let input = '=VLOOKUP(A1, A4:A8, (1+1)/14, False) + CONCAT(X, Y+"abc")';
   let text = formatFormula(input, lang);
   let block;
-
-  if (lang === "de") {
-    input = "=SVERWEIS(A1; A4:A8; (1+1)/14; Falsch)";
-  }
 
   let handleButtonGo = () => {
     text = formatFormula(input, lang);
     block.innerHTML = text;
     hljs.highlightBlock(block);
-  }
+  };
 
   onMount(() => handleButtonGo());
 </script>
 
-
-<div class="center">
-  <img src="./Assets/analysis.svg" alt="Excel Illustration">
-  <div class="white-box">
-  {#if lang==="de"}
-    <h1>Excel Formeln Formatierer</h1>
-  {:else}
-    <h1>Excel Formula Prettifier</h1>
-  {/if}
-    <textarea bind:value={input}></textarea>
-    <div class="row">
-      <button type="button" id="go" on:click={handleButtonGo}>Go</button>
-      <select id="lang" name="languageSelector" bind:value={lang}>
-        <option value="de">de</option>
-        <option value="en">en</option>
-      </select>
-    </div>
-    <pre><code class="excel" bind:this={block}></code></pre>
-  </div>
-</div>
-
 <style lang="scss">
   @import "./styles/colors.scss";
-  
+
   .center {
     flex-direction: column;
   }
@@ -82,7 +57,7 @@
       max-height: 150px;
     }
   }
-  
+
   .row {
     display: flex;
     justify-content: left;
@@ -98,3 +73,25 @@
     }
   }
 </style>
+
+<div class="center">
+  <img src="./Assets/analysis.svg" alt="Excel Illustration" />
+  <div class="white-box">
+    {#if lang === 'de'}
+      <h1>Excel Formeln Formatierer</h1>
+    {:else}
+      <h1>Excel Formula Prettifier</h1>
+    {/if}
+    <textarea bind:value={input} />
+    <div class="row">
+      <button type="button" id="go" on:click={handleButtonGo}>Go</button>
+      <select id="lang" name="languageSelector" bind:value={lang}>
+        <option value="de">de</option>
+        <option value="en">en</option>
+      </select>
+    </div>
+    <pre>
+      <code class="excel" bind:this={block} />
+    </pre>
+  </div>
+</div>
