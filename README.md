@@ -1,6 +1,6 @@
 # Excel Formula Prettifier
 
-Working Demo here: [daskannexcel.com](https://daskannexcel.com)
+[Working Demo](https://dfcsv.github.io/ExcelFormeln-Host)
 
 A little  project with Svelte and some Typescript. My goal was to take an Excel formula string and to format it like computer code. The result runs through highlight.js. 
 
